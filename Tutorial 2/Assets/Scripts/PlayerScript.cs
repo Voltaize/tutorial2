@@ -10,14 +10,22 @@ public class PlayerScript : MonoBehaviour
     public float speed;
 
     public Text score;
+    public Text Win;
 
     private int scoreValue = 0;
+    private int move = 0;
+
+    public AudioClip musicClipOne;
+    public AudioClip musicClipTwo;
+    public AudioSource musicSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
         score.text = scoreValue.ToString();
+        musicSource.clip = musicClipOne;
+        musicSource.Play();
     }
 
     // Update is called once per frame
@@ -35,6 +43,24 @@ public class PlayerScript : MonoBehaviour
             scoreValue += 1;
             score.text = scoreValue.ToString();
             Destroy(collision.collider.gameObject);
+        }
+
+         if (scoreValue == 4)
+       {
+        if(move == 0)
+        {
+        transform.position = new Vector3(-17.0f, 0.5f, 3.0f);
+           move = 1;
+        }
+          
+       }
+        if (scoreValue == 8)
+        {
+        musicSource.clip = musicClipTwo;
+        musicSource.Play();
+        musicSource.loop = false;
+        //win.text = "You win! Game by Nicole F ";
+
         }
 
     }

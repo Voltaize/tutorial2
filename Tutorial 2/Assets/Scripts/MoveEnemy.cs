@@ -8,6 +8,9 @@ public class MoveEnemy : MonoBehaviour
 public Transform startMarker;
 public Transform endMarker;
 
+Animator anim;
+private bool facingLeft = true;
+
 // Movement speed in units/sec.
 public float speed = 2.5F;
 
@@ -29,6 +32,18 @@ void Start()
 // Follows the target position like with a spring
 void Update()
      {
+        float hozMovement = Input.GetAxis("Horizontal");
+        float vertMovement = Input.GetAxis("Vertical");
+     if (facingLeft == false && hozMovement > 0)
+          {
+               Flip();
+          }
+          else if (facingLeft == true && hozMovement < 0)
+          {
+               Flip();
+          }
+
+       
      // Distance moved = time * speed.
           float distCovered = (Time.time - startTime) * speed;
 
@@ -38,4 +53,12 @@ void Update()
      // Set our position as a fraction of the distance between the markers and pingpong the movement.
           transform.position = Vector3.Lerp(startMarker.position, endMarker.position, Mathf.PingPong (fracJourney, 1));
      }
+
+     void Flip()
+   {
+     facingLeft = !facingLeft;
+     Vector2 Scaler = transform.localScale;
+     Scaler.x = Scaler.x * -1;
+     transform.localScale = Scaler;
+   }
 }

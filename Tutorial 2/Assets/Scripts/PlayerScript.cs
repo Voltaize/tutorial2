@@ -40,18 +40,46 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        anim.SetInteger("State", 0);
         float hozMovement = Input.GetAxis("Horizontal");
         float vertMovement = Input.GetAxis("Vertical");
+
+        //add keys
+        
+         if (Input.GetKey(KeyCode.W))
+            {
+                anim.SetInteger("State", 3);
+            }
+             
+
+             if (Input.GetKey(KeyCode.D))
+            {
+                anim.SetInteger("State", 1);
+            }
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetInteger("State", 0);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                anim.SetInteger("State", 1);
+            }
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim.SetInteger("State", 0);
+            }
+
+    
         rd2d.AddForce(new Vector2(hozMovement * speed, vertMovement * speed));
         if (facingRight == false && hozMovement > 0)
         {
             Flip();
-            anim.SetInteger("State", 1);
+        
         }
         else if (facingRight == true && hozMovement < 0)
         {
             Flip();
-            anim.SetInteger("State", 1);
+           
         }
     }
 
@@ -109,10 +137,10 @@ public class PlayerScript : MonoBehaviour
         
         if (collision.collider.tag == "Ground")
         {
-            if (move == 0)
-            {
-                anim.SetInteger("State", 0);
-            }
+          //  if (move == 0)
+            //{
+           //     anim.SetInteger("State", 0);
+          // }
             
             
             if (Input.GetKey(KeyCode.W))
@@ -124,10 +152,10 @@ public class PlayerScript : MonoBehaviour
            
         }
 
-         if (collision.collider.tag != "Ground")
-         {
-            anim.SetInteger("State", 3);
-         }
+        // if (collision.collider.tag != "Ground")
+        // {
+        //    anim.SetInteger("State", 3);
+       // }
     }
     void Flip()
    {

@@ -46,10 +46,12 @@ public class PlayerScript : MonoBehaviour
         if (facingRight == false && hozMovement > 0)
         {
             Flip();
+            anim.SetInteger("State", 1);
         }
         else if (facingRight == true && hozMovement < 0)
         {
             Flip();
+            anim.SetInteger("State", 1);
         }
     }
 
@@ -59,6 +61,8 @@ public class PlayerScript : MonoBehaviour
         {
             livesValue -= 1;
             Lives.text = livesValue.ToString();
+            collision.collider.gameObject.SetActive(false);
+
             if(livesValue == 0)
             {
                  Win.text = "You lose! Game by Nicole F ";
@@ -79,7 +83,7 @@ public class PlayerScript : MonoBehaviour
         {
         transform.position = new Vector3(-17.0f, 0.5f, 3.0f);
            move = 1;
-           anim.SetInteger("State", 1);
+           
         }
           
        }
@@ -105,15 +109,25 @@ public class PlayerScript : MonoBehaviour
         
         if (collision.collider.tag == "Ground")
         {
-            anim.SetInteger("State", 0);
+            if (move == 0)
+            {
+                anim.SetInteger("State", 0);
+            }
+            
+            
             if (Input.GetKey(KeyCode.W))
             {
-                anim.SetInteger("State", 3);
+                
                 rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse); //the 3 in this line of code is the player's "jumpforce," and you change that number to get different jump behaviors.  You can also create a public variable for it and then edit it in the inspector.
                  
             }
            
         }
+
+         if (collision.collider.tag != "Ground")
+         {
+            anim.SetInteger("State", 3);
+         }
     }
     void Flip()
    {

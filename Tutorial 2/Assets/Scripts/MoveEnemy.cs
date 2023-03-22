@@ -43,10 +43,7 @@ void Update()
           transform.position = Vector3.Lerp(startMarker.position, endMarker.position, Mathf.PingPong (fracJourney, 1));
           
 
-           if(transform.position == startMarker.position)
-           {
-               Flip();
-           }
+          
      }
 
      void Flip()
@@ -56,4 +53,12 @@ void Update()
      Scaler.x = Scaler.x * -1;
      transform.localScale = Scaler;
    }
+   private void OnCollisionStay2D(Collision2D collision)
+    {
+     if(collision.collider.tag == "stopper")
+               {
+                    Flip();
+               }
+    }
+
 }

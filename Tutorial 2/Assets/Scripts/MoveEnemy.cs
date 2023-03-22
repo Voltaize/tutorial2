@@ -32,18 +32,7 @@ void Start()
 // Follows the target position like with a spring
 void Update()
      {
-        float hozMovement = Input.GetAxis("Horizontal");
-        float vertMovement = Input.GetAxis("Vertical");
-     if (facingLeft == false && hozMovement > 0)
-          {
-               Flip();
-          }
-          else if (facingLeft == true && hozMovement < 0)
-          {
-               Flip();
-          }
-
-       
+     
      // Distance moved = time * speed.
           float distCovered = (Time.time - startTime) * speed;
 
@@ -52,6 +41,12 @@ void Update()
 
      // Set our position as a fraction of the distance between the markers and pingpong the movement.
           transform.position = Vector3.Lerp(startMarker.position, endMarker.position, Mathf.PingPong (fracJourney, 1));
+          
+
+           if(transform.position == startMarker.position)
+           {
+               Flip();
+           }
      }
 
      void Flip()

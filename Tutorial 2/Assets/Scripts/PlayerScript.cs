@@ -137,10 +137,6 @@ public class PlayerScript : MonoBehaviour
         
         if (collision.collider.tag == "Ground")
         {
-          //  if (move == 0)
-            //{
-           //     anim.SetInteger("State", 0);
-          // }
             
             
             if (Input.GetKey(KeyCode.W))
@@ -152,10 +148,7 @@ public class PlayerScript : MonoBehaviour
            
         }
 
-        // if (collision.collider.tag != "Ground")
-        // {
-        //    anim.SetInteger("State", 3);
-       // }
+    
     }
     void Flip()
    {

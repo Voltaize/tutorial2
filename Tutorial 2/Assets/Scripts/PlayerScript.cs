@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
         Lives.text = livesValue.ToString();
         musicSource.clip = musicClipOne;
         musicSource.Play();
+        musicSource.loop = true;
     }
 
     // Update is called once per frame
@@ -52,7 +53,7 @@ public class PlayerScript : MonoBehaviour
             }
              
 
-             if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 anim.SetInteger("State", 1);
             }
@@ -70,7 +71,7 @@ public class PlayerScript : MonoBehaviour
             }
 
     
-        rd2d.AddForce(new Vector2(hozMovement * speed, vertMovement * speed));
+        rd2d.velocity = new Vector2(hozMovement * speed, rd2d.velocity.y);
         if (facingRight == false && hozMovement > 0)
         {
             Flip();
@@ -85,7 +86,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-         if (collision.collider.tag == "Enemy")
+        if (collision.collider.tag == "Enemy")
         {
             livesValue -= 1;
             Lives.text = livesValue.ToString();
@@ -94,18 +95,19 @@ public class PlayerScript : MonoBehaviour
             if(livesValue == 0)
             {
                  Win.text = "You lose! Game by Nicole F ";
+                 speed = 0;
 
             }
         }
 
        if (collision.collider.tag == "Coin")
-        {
+       {
             scoreValue += 1;
             score.text = scoreValue.ToString();
             Destroy(collision.collider.gameObject);
-        }
+       }
 
-         if (scoreValue == 4)
+       if (scoreValue == 4)
        {
         if(move == 0)
         {
@@ -125,6 +127,7 @@ public class PlayerScript : MonoBehaviour
         musicSource.Play();
         musicSource.loop = false;
         Win.text = "You win! Game by Nicole F ";
+        speed = 0;
         }
         
 
@@ -142,7 +145,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 
-                rd2d.AddForce(new Vector2(0, 3), ForceMode2D.Impulse); //the 3 in this line of code is the player's "jumpforce," and you change that number to get different jump behaviors.  You can also create a public variable for it and then edit it in the inspector.
+                rd2d.velocity = new Vector2(0, 6); //the 3 in this line of code is the player's "jumpforce," and you change that number to get different jump behaviors.  You can also create a public variable for it and then edit it in the inspector.
                  
             }
            
@@ -150,7 +153,7 @@ public class PlayerScript : MonoBehaviour
 
     
     }
-    void Flip()
+   void Flip()
    {
      facingRight = !facingRight;
      Vector2 Scaler = transform.localScale;
